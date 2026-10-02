@@ -1,0 +1,143 @@
+/* ************************   responsive  ************************
+   New components are single-column by default (mobile-first) and gain
+   columns through min-width queries below. The original desktop-first
+   rules (hero width and title size) are relaxed with max-width queries.
+   Breakpoints: 640px, 768px, 1024px, 1440px.
+   *************************************************************** */
+
+/* ---- up to tablet: relax the original hero sizing ---- */
+@media (max-width: 900px) {
+  .hero {
+    width: var(--container);
+    padding-block: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .hero-role {
+    font-size: 1.15rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+  }
+}
+
+/* ---- phones: icon-only navigation that fits one row at 360px ---- */
+@media (max-width: 640px) {
+  .navigation {
+    top: 0.5rem;
+    margin-block: 0.5rem;
+    padding: 0.4rem;
+  }
+
+  .navigation .nav ul {
+    flex-wrap: nowrap;
+    gap: 0.15rem;
+  }
+
+  .nav-item {
+    min-width: 40px;
+    padding-inline: 0.25rem;
+  }
+
+  .nav-icon {
+    margin-inline: 0.25rem;
+  }
+
+  /* labels stay available to screen readers */
+  .nav-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .section {
+    margin-block: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: auto;
+    padding: 3rem 1rem;
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .card,
+  .project-body {
+    padding: 1.25rem;
+  }
+
+  .stat-number {
+    font-size: 1.75rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .hero-actions .btn,
+  .project-links .btn {
+    flex: 1 1 100%;
+  }
+}
+
+/* ---- tablet and up ---- */
+@media (min-width: 640px) {
+  .skill-groups,
+  .project-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .about-card {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: center;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1.3fr 1fr;
+    align-items: start;
+  }
+
+  /* the featured project spans the full row, media beside text */
+  .project-card-featured {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .project-card-featured .project-media {
+    min-height: 100%;
+  }
+}
+
+/* ---- desktop ---- */
+@media (min-width: 1024px) {
+  .skill-groups {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .project-body {
+    padding: 2rem;
+  }
+}
+
+/* ---- large screens: keep the layout calm instead of stretching ---- */
+@media (min-width: 1440px) {
+  .hero-title {
+    font-size: 4.75rem;
+  }
+}

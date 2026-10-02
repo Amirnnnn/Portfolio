@@ -1,0 +1,647 @@
+/* ************************   navigation  ************************ */
+.navigation {
+  position: sticky; /* sticky navbar */
+  top: 0.75rem;
+  z-index: 100;
+  width: var(--container);
+  margin: 1rem auto;
+  padding: 0.75rem;
+  -webkit-backdrop-filter: var(--blur-glass);
+  backdrop-filter: var(--blur-glass);
+  background-color: var(--surface-nav);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-nav);
+}
+
+.navigation .nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem clamp(0.25rem, 2vw, 1.5rem);
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item {
+  position: relative;
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  text-align: center;
+  transition:
+    background-color var(--transition),
+    color var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition),
+    transform var(--transition);
+}
+
+.nav-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.nav-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.36),
+    rgba(255, 255, 255, 0.06)
+  );
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.nav-item > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* the language switcher is a <button> that looks like a nav link */
+button.nav-item {
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.lang-toggle[lang="fa"] {
+  font-family: var(--font-fa);
+  font-size: 1.05rem;
+}
+
+/* icons are CSS masks, so they inherit the text color (currentColor) */
+.nav-icon,
+.icon {
+  display: inline-block;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  margin-inline: 0.5rem;
+  background-color: currentColor;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+}
+
+.home-icon {
+  mask-image: url("../assets/icons/home-duotone.svg");
+  -webkit-mask-image: url("../assets/icons/home-duotone.svg");
+}
+
+.about-icon {
+  mask-image: url("../assets/icons/about-filled.svg");
+  -webkit-mask-image: url("../assets/icons/about-filled.svg");
+}
+
+.skills-icon {
+  mask-image: url("../assets/icons/skills-duotone.svg");
+  -webkit-mask-image: url("../assets/icons/stars-2-bold-duotone.svg");
+}
+
+.projects-icon {
+  mask-image: url("../assets/icons/suitcase-duotone.svg");
+  -webkit-mask-image: url("../assets/icons/suitcase-duotone.svg");
+}
+
+.experience-icon {
+  mask-image: url("../assets/icons/education-duotone.svg");
+  -webkit-mask-image: url("../assets/icons/education-filled.svg");
+}
+
+.contact-icon {
+  mask-image: url("../assets/icons/envelope-fill.svg");
+  -webkit-mask-image: url("../assets/icons/envelope-fill.svg");
+}
+
+.github-icon {
+  mask-image: url("../assets/icons/github.svg");
+  -webkit-mask-image: url("../assets/icons/github.svg");
+}
+
+.nav-item:hover,
+.nav-item:focus-visible,
+.nav-item.is-active {
+  color: var(--color-accent-strong);
+  background-color: var(--surface-hover);
+  border-color: rgba(74, 73, 41, 0.18);
+  box-shadow: 0 6px 18px rgba(42, 45, 28, 0.14);
+  transform: translateY(-1px);
+}
+
+.nav-item:hover::before,
+.nav-item:focus-visible::before,
+.nav-item.is-active::before {
+  opacity: 1;
+}
+
+.nav-item:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* ************************   buttons  ************************ */
+.btn {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.5rem;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color var(--transition),
+    box-shadow var(--transition),
+    transform var(--transition),
+    color var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  box-shadow: var(--shadow-btn);
+  color: var(--color-on-primary);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background-color: var(--color-primary-dark);
+  box-shadow: var(--shadow-btn-hover);
+}
+
+/* secondary = the same green, outlined */
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-primary-dark);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: var(--shadow-btn-hover);
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--color-accent-strong);
+  outline-offset: 4px;
+}
+
+/* ************************   hero section  ************************ */
+.hero {
+  -webkit-backdrop-filter: var(--blur-glass);
+  backdrop-filter: var(--blur-glass);
+  background-color: var(--surface-hero);
+  width: 70%;
+  border-radius: var(--radius-xl);
+  display: grid;
+  min-height: 65vh;
+  padding: 5rem 1.5rem;
+  place-items: center;
+  text-align: center;
+  margin-inline: auto;
+  box-shadow: var(--shadow-hero);
+  margin-block: 20px;
+  scroll-margin-top: 6rem;
+}
+
+.hero-content {
+  max-width: 54rem;
+}
+
+/* placeholder avatar: swap the <div> for an <img class="hero-avatar"> when you have a photo */
+.hero-avatar {
+  display: block;
+  width: 250px;
+  height: 250px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  box-shadow: var(--shadow-btn);
+  object-fit: cover;
+  border: 5px solid var(--color-primary);
+}
+
+.hero-title {
+  color: var(--color-text);
+  font-size: 4.25rem;
+  font-weight: 600;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.hero-role {
+  margin-top: 1rem;
+  text-wrap: balance;
+  color: var(--color-primary);
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.hero-subtitle {
+  max-width: 36rem;
+  margin: 1.25rem auto 2rem;
+  color: var(--color-text-muted);
+  font-size: 1.2rem;
+  line-height: 1.7;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+/* ************************   shared section layout  ************************ */
+.section {
+  width: var(--container);
+  margin: 4rem auto;
+  scroll-margin-top: 6rem;
+}
+
+.section-title {
+  margin-bottom: 1.5rem;
+  color: var(--color-text);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.card {
+  padding: 1.5rem;
+  -webkit-backdrop-filter: var(--blur-glass);
+  backdrop-filter: var(--blur-glass);
+  background-color: var(--surface-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.badge {
+  display: inline-block;
+  justify-self: start;
+  padding: 0.15rem 0.65rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ************************   about section  ************************ */
+.about-card {
+  display: grid;
+  gap: 2rem;
+}
+
+.about-text p {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.about-list {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  max-width: 40rem;
+  padding-inline-start: 1.25rem;
+  list-style: disc;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  align-content: center;
+}
+
+.stat {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem 0.5rem;
+  border-radius: var(--radius-md);
+  background-color: var(--surface-hover);
+  text-align: center;
+}
+
+.stat-number {
+  color: var(--color-primary);
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+/* ************************   skills section  ************************ */
+.skill-groups {
+  display: grid;
+  gap: 1rem;
+}
+
+.skill-group-title {
+  margin-bottom: 1rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.skill-tags,
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag,
+.tag {
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+.skill-tag:hover {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+/* ************************   projects section  ************************ */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-btn {
+  min-height: 44px;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: var(--color-primary-dark);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+.filter-btn:hover,
+.filter-btn[aria-pressed="true"] {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.filter-btn:focus-visible {
+  outline: 3px solid var(--color-accent-strong);
+  outline-offset: 3px;
+}
+
+.project-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.project-card {
+  display: grid;
+  overflow: hidden;
+  -webkit-backdrop-filter: var(--blur-glass);
+  backdrop-filter: var(--blur-glass);
+  background-color: var(--surface-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.project-card[hidden] {
+  display: none;
+}
+
+/* decorative image area; replace the inline SVG with an <img loading="lazy"> */
+.project-media {
+  display: grid;
+  place-items: center;
+  min-height: 11rem;
+  background: linear-gradient(
+    148deg,
+    var(--color-primary-dark) 0%,
+    var(--color-bg-1) 100%
+  );
+  color: var(--color-bg-3);
+}
+
+.project-media svg,
+.project-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-body {
+  display: grid;
+  gap: 0.85rem;
+  align-content: start;
+  padding: 1.5rem;
+}
+
+.project-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* placeholder cards: dashed outline marks "replace me" */
+.project-card-placeholder {
+  border: 2px dashed var(--color-accent);
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* ************************   experience / education timeline  ************************ */
+.timeline {
+  display: grid;
+  gap: 1.75rem;
+  padding-inline-start: 1.75rem;
+  border-inline-start: 2px solid var(--color-accent);
+}
+
+.timeline-item {
+  position: relative;
+  display: grid;
+  gap: 0.35rem;
+  justify-items: start;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: calc(-1.75rem - 7px);
+  top: 0.4rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--surface-nav);
+}
+
+.timeline-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.timeline-meta {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+/* ************************   contact section  ************************ */
+.contact-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.contact-lead {
+  margin-bottom: 1.25rem;
+  max-width: 34rem;
+}
+
+.contact-links {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+}
+
+.contact-link {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  padding-inline: 0.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+.contact-link:hover,
+.contact-link:focus-visible {
+  color: var(--color-accent-strong);
+  background-color: var(--surface-hover);
+}
+
+.contact-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.contact-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.field label {
+  font-weight: 600;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  background-color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text);
+  font: inherit;
+  transition:
+    background-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.field textarea {
+  min-height: 9rem;
+  resize: vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #5b5c4b;
+}
+
+.field input:focus-visible,
+.field textarea:focus-visible {
+  outline: 3px solid var(--color-accent-strong);
+  outline-offset: 2px;
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.form-status {
+  min-height: 1.5rem;
+  font-weight: 600;
+}
+
+.form-status.is-success {
+  color: var(--color-success);
+}
+
+.form-status.is-error {
+  color: var(--color-error);
+}
+
+.contact-form .btn {
+  justify-self: start;
+}
+
+/* ************************   footer  ************************ */
+.footer {
+  display: grid;
+  gap: 0.25rem;
+  width: var(--container);
+  margin: 4rem auto 1rem;
+  padding: 1.25rem 1rem;
+  border-radius: var(--radius-lg);
+  background-color: var(--surface-footer);
+  box-shadow: var(--shadow-nav);
+  color: var(--color-text-on-dark);
+  font-size: 0.9rem;
+  text-align: center;
+}

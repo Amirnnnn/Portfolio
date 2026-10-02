@@ -1,0 +1,187 @@
+/* ************************   design tokens  ************************
+   Every value below was extracted from the original project's literals.
+   Change a token here and it updates everywhere.
+   ****************************************************************** */
+
+:root {
+  /* colors: background gradient stops (original body gradient) */
+  /* transition from dark blue to dark green, with light stop in between */
+  --color-bg-1: #3296d3; /* medium-dark blue */
+  --color-bg-2: #addbeb; /* light blue */
+  --color-bg-3: #fcf1e2; /* light beige */
+  --color-bg-4: #addbeb; /* dark green */
+
+  /* colors: text */
+  /* For text on light surfaces (like the beige or light blue) */
+  --color-text: #053328; /* very dark green (almost black) for contrast */
+  --color-text-muted: #1e6051; /* dark-medium green for subtitles */
+  /* For text on the dark gradient edge (like the blue or dark green) */
+  --color-text-on-dark: #fcf1e2; /* light beige text */
+
+  /* colors: accent / interaction */
+  /* Using the medium blue as a neutral yet visible interaction color */
+  --color-accent: #3296d3; /* medium-dark blue for hover + focus */
+  /* Darker accent for contrast against light nav */
+  --color-accent-strong: #1e6051; /* dark-medium green */
+
+  /* colors: primary button (original .btn-primary) */
+  /* Using the dark green as the primary button color for strong contrast */
+  --color-primary: #0a8a6d;
+  --color-primary-dark: #053328; /* darker shade for hover */
+  --color-on-primary: #fff; /* white text on green button for maximum contrast */
+
+  /* colors: status */
+  --color-success: #0a8a6d; /* green for success, derived from palette */
+  --color-error: #a82424; /* standard error red, as not in palette */
+
+  /* surfaces (glassmorphism) */
+  /* These are more transparent for better integration with the background */
+  --surface-hero: rgba(252, 241, 226, 0.15); /* light beige tint, more visible on gradient */
+  /* Nav is a clean light blue glass */
+  --surface-nav: rgba(173, 219, 235, 0.65); /* light blue glass for readability */
+  /* Cards are light beige for maximum readability of dark text */
+  --surface-card: rgba(252, 241, 226, 0.7); /* beige glass, more opaque for contrast */
+  --surface-hover: rgba(255, 255, 255, 0.25); /* standard light hover */
+  /* Footer bar: dark green for light text contrast */
+  --surface-footer: rgba(10, 138, 109, 0.9); /* dark green, near opaque */
+
+  /* shape */
+  --radius-sm: 4px; /* buttons */
+  --radius-md: 6px; /* nav items */
+  --radius-lg: 12px; /* nav bar, cards */
+  --radius-xl: 20px; /* hero */
+  --shadow-nav: 0 0 10px rgba(0, 0, 0, 0.15); /* softened shadows for a lighter theme */
+  --shadow-hero: 0 0 10px rgba(0, 0, 0, 0.35); /* softened shadows for a lighter theme */
+  --shadow-card: 0 0 10px rgba(0, 0, 0, 0.15); /* softened shadows for a lighter theme */
+  /* shadow based on the dark text color, reduced opacity */
+  --shadow-btn: 0 5px 14px rgba(5, 51, 40, 0.15);
+  --shadow-btn-hover: 0 8px 18px rgba(5, 51, 40, 0.25);
+  --blur-glass: blur(10px);
+
+  /* layout */
+  --container: min(100% - 2rem, 64rem); /* original nav width */
+
+  /* motion */
+  --transition: 160ms ease; /* original hover duration + easing */
+  --transition-reveal: 450ms ease;
+
+  /* typography */
+  --font-main: "Poppins", sans-serif;
+  --font-fa: "Vazirmatn", "Poppins", sans-serif;
+}
+
+/* ************************   reset  ************************ */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; /* smooth-scroll for the navigation anchors */
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-text);
+  line-height: 1.6;
+  /* The original used height: 100vh. A scrolling page needs min-height,
+     and a fixed gradient keeps the first screen identical to the original. */
+  min-height: 100vh;
+  background: #4d4d35;
+  background: linear-gradient(
+    148deg,
+    var(--color-bg-1) 0%,
+    var(--color-bg-2) 32%,
+    var(--color-bg-3) 65%,
+    var(--color-bg-4) 87%,
+    var(--color-bg-1) 100%
+  );
+  background-attachment: fixed;
+}
+
+/* Persian: swap to Vazirmatn, which matches Poppins' geometric feel */
+html[lang="fa"] body {
+  font-family: var(--font-fa);
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* The original styled every <img> as a 20px icon. Icons are CSS masks now,
+   so images (avatar, project screenshots) get sane defaults instead. */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ************************   accessibility helpers  ************************ */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: 1rem;
+  top: -4rem;
+  z-index: 200;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 600;
+  transition: top var(--transition);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ************************   scroll reveal  ************************
+   The hidden state only applies when JS is running (html.js),
+   so the page is fully visible without JavaScript. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--transition-reveal),
+    transform var(--transition-reveal);
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

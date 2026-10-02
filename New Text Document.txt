@@ -1,0 +1,55 @@
+:root {
+  /* colors: background gradient stops (original body gradient) */
+  --color-bg-1: rgba(77, 77, 53, 1);
+  --color-bg-2: rgba(199, 198, 129, 1);
+  --color-bg-3: rgba(209, 208, 134, 1);
+  --color-bg-4: rgba(130, 128, 64, 1);
+
+  /* colors: text */
+  --color-text: #292a20; /* original hero title */
+  --color-text-muted: #3b3c2d; /* original hero subtitle */
+  --color-text-on-dark: #f4f3d9; /* footer text on the dark gradient edge */
+
+  /* colors: accent / interaction */
+  --color-accent: #64633a; /* original hover + focus color */
+  --color-accent-strong: #4a4929; /* hover text on the lighter nav surface (contrast) */
+
+  /* colors: primary button (original .btn-primary) */
+  --color-primary: #34483b;
+  --color-primary-dark: #26382d;
+  --color-on-primary: #fff;
+
+  /* colors: status */
+  --color-success: #26382d;
+  --color-error: #7a1f1f;
+
+  /* surfaces (glassmorphism) */
+  --surface-hero: rgba(106, 111, 14, 0.1); /* original hero tint */
+  --surface-nav: rgba(244, 243, 217, 0.55); /* original nav tint, lifted so the sticky bar stays readable */
+  --surface-card: rgba(244, 243, 217, 0.4); /* text-heavy cards: same glass, lighter for contrast */
+  --surface-hover: rgba(255, 255, 255, 0.22); /* original nav hover */
+  --surface-footer: rgba(38, 56, 45, 0.82); /* footer bar: always dark so light text keeps contrast */
+
+  /* shape */
+  --radius-sm: 4px; /* buttons */
+  --radius-md: 6px; /* nav items */
+  --radius-lg: 12px; /* nav bar, cards */
+  --radius-xl: 20px; /* hero */
+  --shadow-nav: 0 0 10px rgba(0, 0, 0, 0.25);
+  --shadow-hero: 0 0 10px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 0 10px rgba(0, 0, 0, 0.25);
+  --shadow-btn: 0 5px 14px rgba(35, 39, 28, 0.2);
+  --shadow-btn-hover: 0 8px 18px rgba(35, 39, 28, 0.25);
+  --blur-glass: blur(10px);
+
+  /* layout */
+  --container: min(100% - 2rem, 64rem); /* original nav width */
+
+  /* motion */
+  --transition: 160ms ease; /* original hover duration + easing */
+  --transition-reveal: 450ms ease;
+
+  /* typography */
+  --font-main: "Poppins", sans-serif;
+  --font-fa: "Vazirmatn", "Poppins", sans-serif;
+}

@@ -1,0 +1,232 @@
+/* ************************   dark-theme.css  ************************
+   Additive dark theme. Load it AFTER common.css, style.css and
+   responsive.css. Every dark rule is scoped to [data-theme="dark"] on
+   <html>, so removing that attribute restores the original site exactly.
+
+   Only color-related properties are changed here (background, color,
+   border-color, box-shadow, outline color, filter on photos, scrollbar,
+   selection). No layout, spacing, font, animation or breakpoint rule is
+   touched. The one exception is the new theme-toggle button (section 7),
+   which is a brand-new element and does not affect existing layout.
+
+   Sections: 1 variables  2 base  3 layout  4 components  5 forms
+             6 media      7 toggle + utilities
+   ****************************************************************** */
+
+/* ************************   1. variables   ************************
+   The site already routes almost every color through CSS variables
+   (common.css :root). Re-declaring the same variables under
+   :root[data-theme="dark"] re-themes everything that uses them, without
+   touching a single existing selector. ":root[...]" has higher
+   specificity than ":root", so this wins regardless of load order.
+
+   Brand identity is kept: blue (#3296d3) and green (#0a8a6d) stay the
+   accents, only brightened where needed for contrast on dark surfaces. */
+:root[data-theme="dark"] {
+  color-scheme: dark; /* native inputs, scrollbars and browser UI go dark */
+
+  /* page gradient: dark counterpart of blue > light blue > beige > blue */
+  --color-bg-1: #0b1f2e; /* deep blue (from #3296d3) */
+  --color-bg-2: #123247; /* lifted blue */
+  --color-bg-3: #172733; /* neutral slate (replaces the beige stop) */
+  --color-bg-4: #0f3a42; /* teal (hint of the brand green) */
+
+  /* text (off-white, never #fff) */
+  --color-text: #e4edf1;
+  --color-text-muted: #a7bac5;
+  --color-text-on-dark: #e8f0ec; /* footer text */
+
+  /* accents */
+  --color-accent: #4aa8e0; /* brand blue, brighter: borders, timeline line */
+  --color-accent-strong: #7fd8c0; /* hover text + focus rings (was dark green) */
+
+  /* primary button family.
+     Light theme: dark-green button + white text.
+     Dark theme: bright-green button + dark text, which also keeps
+     "primary as text color" (hero role, stat numbers) readable.
+     Hover goes LIGHTER (--color-primary-dark) instead of darker. */
+  --color-primary: #3cc3a0;
+  --color-primary-dark: #8be3cb;
+  --color-on-primary: #06241c;
+
+  /* status text */
+  --color-success: #5fd9b8;
+  --color-error: #ff9a9a;
+
+  /* glass surfaces: dark tints over the dark gradient */
+  --surface-hero: rgba(173, 219, 235, 0.06);
+  --surface-nav: rgba(14, 30, 42, 0.78);
+  --surface-card: rgba(20, 38, 52, 0.74);
+  --surface-hover: rgba(255, 255, 255, 0.08);
+  --surface-footer: rgba(8, 52, 44, 0.94);
+
+  /* shadows: pure-black shadows read correctly on dark */
+  --shadow-nav: 0 0 10px rgba(0, 0, 0, 0.4);
+  --shadow-hero: 0 0 10px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 0 10px rgba(0, 0, 0, 0.4);
+  --shadow-btn: 0 5px 14px rgba(0, 0, 0, 0.35);
+  --shadow-btn-hover: 0 8px 18px rgba(0, 0, 0, 0.5);
+
+  /* --- extra tokens for the literals that were hard-coded in style.css --- */
+  --dt-nav-hover-border: rgba(255, 255, 255, 0.14); /* was rgba(74,73,41,.18) */
+  --dt-nav-hover-shadow: 0 6px 18px rgba(0, 0, 0, 0.35); /* was olive shadow */
+  --dt-nav-sheen-from: rgba(255, 255, 255, 0.1); /* was white .36 */
+  --dt-nav-sheen-to: rgba(255, 255, 255, 0.02); /* was white .06 */
+  --dt-field-bg: rgba(8, 18, 26, 0.55); /* was rgba(255,255,255,.6) */
+  --dt-field-bg-focus: rgba(8, 18, 26, 0.8); /* was rgba(255,255,255,.85) */
+  --dt-field-autofill: #0d1b26; /* opaque, for browser autofill */
+  --dt-placeholder: #9fb2bd; /* was #5b5c4b */
+  --dt-media-from: #0b3d33; /* project media gradient start */
+  --dt-media-to: #0e2a3d; /* project media gradient end */
+  --dt-media-stroke: #7fe0c4; /* ECG line (currentColor) */
+  --dt-photo-filter: brightness(0.92); /* subtle dimming for photos */
+  --dt-scroll-thumb: #3a5568;
+  --dt-scroll-track: #0d1c27;
+  --dt-selection-bg: rgba(60, 195, 160, 0.4);
+  --dt-selection-text: #f2fbf8;
+}
+
+/* ************************   2. base   ************************ */
+/* Standard (non-layout) scrollbar colors; no width is set. */
+:root[data-theme="dark"] {
+  scrollbar-color: var(--dt-scroll-thumb) var(--dt-scroll-track);
+}
+
+[data-theme="dark"] ::selection {
+  background-color: var(--dt-selection-bg);
+  color: var(--dt-selection-text);
+}
+
+/* Body color, gradient, links (a { color: inherit }), headings and the
+   footer all read the variables above, so they need no extra rules.
+   Icons are CSS masks filled with currentColor, so they follow the text
+   color automatically. */
+
+/* ************************   3. layout   ************************ */
+/* Navigation, hero, sections, cards, footer: fully handled by the
+   --surface-*, --shadow-* and --color-* variables in section 1. */
+
+/* ************************   4. components   ************************ */
+
+/* Nav hover/active: original used olive border + shadow literals. */
+[data-theme="dark"] .nav-item:hover,
+[data-theme="dark"] .nav-item:focus-visible,
+[data-theme="dark"] .nav-item.is-active {
+  border-color: var(--dt-nav-hover-border);
+  box-shadow: var(--dt-nav-hover-shadow);
+}
+
+/* Nav hover sheen: the original white .36 sheen would wash out the
+   light text on dark, so it is toned down. */
+[data-theme="dark"] .nav-item::before {
+  background: linear-gradient(
+    135deg,
+    var(--dt-nav-sheen-from),
+    var(--dt-nav-sheen-to)
+  );
+}
+
+/* Featured project media: the original gradient used --color-primary-dark
+   and --color-bg-3, which now hold light/dark values for other purposes.
+   Pinned here so the ECG line stays visible. */
+[data-theme="dark"] .project-media {
+  background: linear-gradient(
+    148deg,
+    var(--dt-media-from) 0%,
+    var(--dt-media-to) 100%
+  );
+  color: var(--dt-media-stroke);
+}
+
+/* Buttons (.btn-primary, .btn-secondary), .filter-btn, .badge, .skill-tag,
+   .tag, .stat, .timeline, .form-status and focus rings are all driven by
+   variables, including their hover / pressed / focus-visible states. */
+
+/* ************************   5. forms   ************************ */
+[data-theme="dark"] .field input,
+[data-theme="dark"] .field textarea {
+  background-color: var(--dt-field-bg);
+}
+
+[data-theme="dark"] .field input::placeholder,
+[data-theme="dark"] .field textarea::placeholder {
+  color: var(--dt-placeholder);
+}
+
+[data-theme="dark"] .field input:focus-visible,
+[data-theme="dark"] .field textarea:focus-visible {
+  background-color: var(--dt-field-bg-focus);
+}
+
+/* Browser autofill paints its own light background; cover it with an
+   opaque inset shadow (standard technique, no !important needed). */
+[data-theme="dark"] .field input:-webkit-autofill,
+[data-theme="dark"] .field input:-webkit-autofill:hover,
+[data-theme="dark"] .field input:-webkit-autofill:focus,
+[data-theme="dark"] .field textarea:-webkit-autofill {
+  -webkit-text-fill-color: var(--color-text);
+  box-shadow: 0 0 0 1000px var(--dt-field-autofill) inset;
+  caret-color: var(--color-text);
+}
+
+/* ************************   6. media   ************************ */
+/* Photos (hero avatar, future project screenshots): slight dimming so a
+   bright photo does not glare on a dark page. Opt out per image by adding
+   style="filter:none" or a rule with higher specificity. */
+[data-theme="dark"] img {
+  filter: var(--dt-photo-filter);
+}
+
+/* Navigation/contact icons are SVG masks (currentColor) and the ECG trace
+   uses stroke="currentColor", so no icon needs a swapped file. */
+
+/* ************************   7. theme toggle + utilities   ************************
+   .theme-toggle is a NEW element created by dark-theme.js. It is position:
+   fixed, so it takes no space in the existing layout. Its styles are not
+   scoped to [data-theme="dark"] because the button must also be visible and
+   usable in light mode; it reads the site's own variables, so it matches
+   whichever theme is active. */
+.theme-toggle {
+  position: fixed;
+  inset-block-end: 1rem;
+  inset-inline-end: 1rem;
+  z-index: 90; /* below the sticky nav (100) and skip-link (200) */
+  display: inline-flex;
+  width: 44px; /* 44px minimum touch target */
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  -webkit-backdrop-filter: var(--blur-glass);
+  backdrop-filter: var(--blur-glass);
+  background-color: var(--surface-nav);
+  box-shadow: var(--shadow-nav);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-accent-strong);
+  color: var(--color-accent-strong);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--color-accent-strong);
+  outline-offset: 3px;
+}
+
+.theme-toggle svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+}
+
+@media print {
+  .theme-toggle {
+    display: none;
+  }
+}
